@@ -32,13 +32,45 @@
         <div class="user-profile">
             <span class="streak-badge">
                 <span class="material-symbols-outlined">local_fire_department</span>
-                12 Day Streak
+                <span class="streak-text">12 Day Streak</span>
             </span>
             <div class="avatar">
                 <img src="https://i.pravatar.cc/150?img=11" alt="User Profile">
             </div>
+            <button class="menu-toggle" id="mobile-menu-toggle" aria-label="Toggle Navigation Menu">
+                <span class="material-symbols-outlined">menu</span>
+            </button>
         </div>
     </nav>
+
+    <!-- Mobile Navigation Drawer Overlay -->
+    <div class="drawer-overlay" id="drawer-overlay"></div>
+
+    <!-- Mobile Navigation Drawer -->
+    <div class="mobile-drawer" id="mobile-drawer">
+        <div class="drawer-header">
+            <div class="logo">
+                <span class="material-symbols-outlined neon-icon">fitness_center</span>
+                Aura<span class="neon-text">Fit</span>
+            </div>
+            <button class="close-drawer" id="close-drawer" aria-label="Close Navigation Menu">
+                <span class="material-symbols-outlined">close</span>
+            </button>
+        </div>
+        <ul class="drawer-links">
+            <li><a href="#" class="active" data-target="home">Home</a></li>
+            <li><a href="#" data-target="dashboard">Dashboard</a></li>
+            <li><a href="#" data-target="generator">AI Generator</a></li>
+            <li><a href="#" data-target="library">Library</a></li>
+            <li><a href="#" data-target="leaderboard">Leaderboard</a></li>
+        </ul>
+        <div class="drawer-footer">
+            <div class="drawer-streak">
+                <span class="material-symbols-outlined">local_fire_department</span>
+                12 Day Streak
+            </div>
+        </div>
+    </div>
 
     <!-- Main Content Container -->
     <main class="content-container">
@@ -125,7 +157,9 @@
                 
                <div class="glass-card chart-card">
                     <h3>Weekly Progress</h3>
-                    <canvas id="progressChart"></canvas>
+                    <div class="chart-container">
+                        <canvas id="progressChart"></canvas>
+                    </div>
                 </div>
 
                 <div class="glass-card schedule-card">

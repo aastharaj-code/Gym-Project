@@ -1,9 +1,39 @@
 // ==========================================================================
 // SPA Navigation Logic
 // ==========================================================================
+const mobileMenuToggle = document.getElementById('mobile-menu-toggle');
+const closeDrawerBtn = document.getElementById('close-drawer');
+const mobileDrawer = document.getElementById('mobile-drawer');
+const drawerOverlay = document.getElementById('drawer-overlay');
+
+if (mobileMenuToggle && mobileDrawer) {
+    mobileMenuToggle.addEventListener('click', () => {
+        mobileDrawer.classList.add('open');
+        if (drawerOverlay) drawerOverlay.classList.add('open');
+        document.body.classList.add('drawer-open');
+    });
+}
+
+function closeMobileDrawer() {
+    if (mobileDrawer) {
+        mobileDrawer.classList.remove('open');
+        if (drawerOverlay) drawerOverlay.classList.remove('open');
+        document.body.classList.remove('drawer-open');
+    }
+}
+
+if (closeDrawerBtn) {
+    closeDrawerBtn.addEventListener('click', closeMobileDrawer);
+}
+
+// Close drawer if clicking the overlay backdrop
+if (drawerOverlay) {
+    drawerOverlay.addEventListener('click', closeMobileDrawer);
+}
+
 function navigateTo(targetId) {
-    // Update nav links
-    document.querySelectorAll('.nav-links a').forEach(link => {
+    // Update nav links for both desktop and mobile drawer
+    document.querySelectorAll('.nav-links a, .drawer-links a').forEach(link => {
         link.classList.remove('active');
         if (link.dataset.target === targetId) {
             link.classList.add('active');
@@ -25,29 +55,39 @@ function navigateTo(targetId) {
             window.chartInitialized = true;
         }
     }
+
+    // Automatically close mobile menu when navigating
+    closeMobileDrawer();
 }
 
 // Attach event listeners to nav links
-document.querySelectorAll('.nav-links a').forEach(link => {
+document.querySelectorAll('.nav-links a, .drawer-links a').forEach(link => {
     link.addEventListener('click', (e) => {
         e.preventDefault();
-        navigateTo(e.target.dataset.target);
+        // Use currentTarget because link has nested icons/spans in some contexts
+        navigateTo(e.currentTarget.dataset.target);
     });
 });
 
 // ==========================================================================
 // Dashboard Chart (Chart.js)
 // ==========================================================================
+let progressChartInstance = null;
 function initChart() {
     const ctx = document.getElementById('progressChart');
     if (!ctx) return;
+
+    // Destroy existing chart instance if it exists to prevent errors
+    if (progressChartInstance) {
+        progressChartInstance.destroy();
+    }
 
     // Gradient fill
     const gradient = ctx.getContext('2d').createLinearGradient(0, 0, 0, 300);
     gradient.addColorStop(0, 'rgba(0, 240, 255, 0.5)');
     gradient.addColorStop(1, 'rgba(0, 240, 255, 0)');
 
-    new Chart(ctx, {
+    progressChartInstance = new Chart(ctx, {
         type: 'line',
         data: {
             labels: ['Week 1', 'Week 2', 'Week 3', 'Week 4', 'Week 5', 'Week 6'],

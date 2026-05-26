@@ -1,0 +1,388 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aura Fitness | AI-Powered Gym</title>
+    <meta name="description" content="Aura Fitness: Your AI-powered gym and personalized fitness journey.">
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <!-- Material Symbols Outlined -->
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet" />
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- Navbar -->
+    <nav class="navbar">
+        <div class="logo">
+            <span class="material-symbols-outlined neon-icon">fitness_center</span>
+            Aura<span class="neon-text">Fit</span>
+        </div>
+        <ul class="nav-links">
+            <li><a href="#" class="active" data-target="home">Home</a></li>
+            <li><a href="#" data-target="dashboard">Dashboard</a></li>
+            <li><a href="#" data-target="generator">AI Generator</a></li>
+            <li><a href="#" data-target="library">Library</a></li>
+            <li><a href="#" data-target="leaderboard">Leaderboard</a></li>
+        </ul>
+        <div class="user-profile">
+            <span class="streak-badge">
+                <span class="material-symbols-outlined">local_fire_department</span>
+                12 Day Streak
+            </span>
+            <div class="avatar">
+                <img src="https://i.pravatar.cc/150?img=11" alt="User Profile">
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content Container -->
+    <main class="content-container">
+
+        <!-- Home Section -->
+        <section id="home" class="page-section active">
+            <div class="hero">
+                <div class="hero-content">
+                    <h1>Unleash Your Potential with <span class="neon-text">AI</span></h1>
+                    <p>Experience the future of fitness. AuraFit creates dynamic, personalized workout and nutrition plans powered by cutting-edge artificial intelligence.</p>
+                    <div class="hero-buttons">
+                        <button class="btn btn-primary" onclick="navigateTo('generator')">Start Journey</button>
+                        <button class="btn btn-secondary" onclick="navigateTo('dashboard')">View Dashboard</button>
+                    </div>
+                </div>
+                <div class="hero-graphics">
+                    <div class="glass-card floating-card card-1">
+                        <span class="material-symbols-outlined">trending_up</span>
+                        <div>
+                            <h4>Performance</h4>
+                            <p>+24% this month</p>
+                        </div>
+                    </div>
+                    <div class="glass-card floating-card card-2">
+                        <span class="material-symbols-outlined">restaurant</span>
+                        <div>
+                            <h4>Diet Plan</h4>
+                            <p>Optimized for Hypertrophy</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+           <div class="features-grid">
+                <div class="glass-card feature-card">
+                    <span class="material-symbols-outlined neon-icon">smart_toy</span>
+                    <h3>AI Coach</h3>
+                    <p>24/7 intelligent guidance, form correction, and motivation.</p>
+                </div>
+                <div class="glass-card feature-card">
+                    <span class="material-symbols-outlined neon-icon">monitoring</span>
+                    <h3>Smart Tracking</h3>
+                    <p>Advanced metrics and progress visualization.</p>
+                </div>
+                <div class="glass-card feature-card">
+                    <span class="material-symbols-outlined neon-icon">emoji_events</span>
+                    <h3>Gamified Fitness</h3>
+                    <p>Compete, earn badges, and climb the leaderboard.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Dashboard Section -->
+        <section id="dashboard" class="page-section">
+            <div class="section-header">
+                <h2>Your <span class="neon-text">Dashboard</span></h2>
+                <p>Track your gains and stay motivated.</p>
+            </div>
+            <div class="dashboard-grid">
+                <div class="glass-card stat-card">
+                    <div class="stat-header">
+                        <span class="material-symbols-outlined">weight</span>
+                        <h3>Current Weight</h3>
+                    </div>
+                    <div class="stat-value">178 <span>lbs</span></div>
+                    <div class="stat-change positive">↓ 2.5 lbs this week</div>
+                </div>
+                <div class="glass-card stat-card">
+                    <div class="stat-header">
+                        <span class="material-symbols-outlined">fitness_center</span>
+                        <h3>Workouts</h3>
+                    </div>
+                    <div class="stat-value">14</div>
+                    <div class="stat-change">This month</div>
+                </div>
+                <div class="glass-card stat-card">
+                    <div class="stat-header">
+                        <span class="material-symbols-outlined">local_fire_department</span>
+                        <h3>Calories Burned</h3>
+                    </div>
+                    <div class="stat-value">12,450 <span>kcal</span></div>
+                    <div class="stat-change positive">↑ 15% vs last month</div>
+                </div>
+                
+               <div class="glass-card chart-card">
+                    <h3>Weekly Progress</h3>
+                    <canvas id="progressChart"></canvas>
+                </div>
+
+                <div class="glass-card schedule-card">
+                    <h3>Today's Plan</h3>
+                    <ul class="task-list">
+                        <li class="completed">
+                            <span class="material-symbols-outlined">check_circle</span>
+                            <div>
+                                <h4>Morning Run</h4>
+                                <p>5k Cardio • Completed at 7:00 AM</p>
+                            </div>
+                        </li>
+                        <li class="pending">
+                            <span class="material-symbols-outlined">radio_button_unchecked</span>
+                            <div>
+                                <h4>Upper Body Power</h4>
+                                <p>Weightlifting • 45 mins</p>
+                            </div>
+                        </li>
+                        <li class="pending">
+                            <span class="material-symbols-outlined">radio_button_unchecked</span>
+                            <div>
+                                <h4>Post-Workout Meal</h4>
+                                <p>Nutrition • 600 kcal</p>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- Generator Section -->
+        <section id="generator" class="page-section">
+            <div class="section-header">
+                <h2>AI Plan <span class="neon-text">Generator</span></h2>
+                <p>Customize your goals and let our AI craft your perfect routine.</p>
+            </div>
+            
+            <div class="generator-container">
+                <div class="glass-card generator-form">
+                    <form id="ai-form">
+                        <div class="form-group">
+                            <label>Primary Goal</label>
+                            <select id="goal">
+                                <option value="muscle">Build Muscle</option>
+                                <option value="fat-loss">Fat Loss</option>
+                                <option value="endurance">Improve Endurance</option>
+                                <option value="maintenance">Maintenance</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>Experience Level</label>
+                            <select id="level">
+                                <option value="beginner">Beginner</option>
+                                <option value="intermediate">Intermediate</option>
+                                <option value="advanced">Advanced</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>Days Per Week</label>
+                            <input type="range" id="days" min="2" max="6" value="4">
+                            <div class="range-value"><span id="days-val">4</span> Days</div>
+                        </div>
+                        <div class="form-group">
+                            <label>Dietary Preferences</label>
+                            <select id="diet">
+                                <option value="none">No Restrictions</option>
+                                <option value="vegetarian">Vegetarian</option>
+                                <option value="vegan">Vegan</option>
+                                <option value="keto">Keto</option>
+                            </select>
+                        </div>
+                        <button type="submit" class="btn btn-primary w-100">
+                            <span class="material-symbols-outlined">auto_fix_high</span>
+                            Generate Masterplan
+                        </button>
+                    </form>
+                </div>
+                
+                <div class="generator-results">
+                    <div id="loading-state" class="hidden">
+                        <div class="spinner"></div>
+                        <p>Aura AI is analyzing your profile...</p>
+                    </div>
+                    <div id="results-content" class="glass-card hidden">
+                        <!-- Populated by JS -->
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Leaderboard Section -->
+        <section id="leaderboard" class="page-section">
+            <div class="section-header">
+                <h2>Global <span class="neon-text">Leaderboard</span></h2>
+                <p>Compete with the AuraFit community.</p>
+            </div>
+            
+            <div class="leaderboard-container glass-card">
+                <div class="podium">
+                    <div class="podium-step second">
+                        <div class="avatar"><img src="https://i.pravatar.cc/150?img=33" alt="User"></div>
+                        <div class="rank">2</div>
+                        <h4>Sarah W.</h4>
+                        <p>14,200 pts</p>
+                    </div>
+                    <div class="podium-step first">
+                        <div class="crown"><span class="material-symbols-outlined">workspace_premium</span></div>
+                        <div class="avatar"><img src="https://i.pravatar.cc/150?img=12" alt="User"></div>
+                        <div class="rank">1</div>
+                        <h4>Alex M.</h4>
+                        <p>18,500 pts</p>
+                    </div>
+                    <div class="podium-step third">
+                        <div class="avatar"><img src="https://i.pravatar.cc/150?img=47" alt="User"></div>
+                        <div class="rank">3</div>
+                        <h4>David K.</h4>
+                        <p>12,800 pts</p>
+                    </div>
+                </div>
+                
+                <div class="leaderboard-list">
+                    <div class="list-item">
+                        <span class="rank">4</span>
+                        <div class="user-info">
+                            <img src="https://i.pravatar.cc/150?img=5" alt="User">
+                            <span>Emma J.</span>
+                        </div>
+                        <span class="points">11,400 pts</span>
+                    </div>
+                    <div class="list-item you">
+                        <span class="rank">5</span>
+                        <div class="user-info">
+                            <img src="https://i.pravatar.cc/150?img=11" alt="User">
+                            <span>You</span>
+                        </div>
+                        <span class="points">10,200 pts</span>
+                    </div>
+                    <div class="list-item">
+                        <span class="rank">6</span>
+                        <div class="user-info">
+                            <img src="https://i.pravatar.cc/150?img=60" alt="User">
+                            <span>Mike T.</span>
+                        </div>
+                        <span class="points">9,800 pts</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Library Section -->
+        <section id="library" class="page-section">
+            <div class="section-header">
+                <h2>Exercise <span class="neon-text">Library</span></h2>
+                <p>Master your form with our intelligent movement database.</p>
+            </div>
+            
+            <div class="library-filters glass-card">
+                <div class="filter-group">
+                    <label>Muscle Group</label>
+                    <select id="filter-muscle">
+                        <option value="all">All Muscles</option>
+                        <option value="chest">Chest</option>
+                        <option value="back">Back</option>
+                        <option value="legs">Legs</option>
+                        <option value="shoulders">Shoulders</option>
+                        <option value="core">Core</option>
+                        <option value="arms">Arms</option>
+                    </select>
+                </div>
+                <div class="filter-group">
+                    <label>Difficulty</label>
+                    <select id="filter-difficulty">
+                        <option value="all">All Levels</option>
+                        <option value="beginner">Beginner</option>
+                        <option value="intermediate">Intermediate</option>
+                        <option value="advanced">Advanced</option>
+                    </select>
+                </div>
+                <div class="filter-group">
+                    <label>Goal</label>
+                    <select id="filter-goal">
+                        <option value="all">All Goals</option>
+                        <option value="hypertrophy">Hypertrophy</option>
+                        <option value="strength">Strength</option>
+                        <option value="endurance">Endurance</option>
+                    </select>
+                </div>
+            </div>
+            
+            <div class="exercise-grid" id="exercise-grid">
+                <!-- Populated by JS -->
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Exercise Modal -->
+    <div class="modal-overlay" id="exercise-modal">
+        <div class="modal-content glass-card">
+            <button class="close-modal" id="close-modal"><span class="material-symbols-outlined">close</span></button>
+            <div class="modal-body">
+                <div class="modal-media">
+                    <img id="modal-img" src="" alt="Exercise Media">
+                </div>
+                <div class="modal-details">
+                    <div class="modal-tags">
+                        <span class="tag tag-muscle" id="modal-muscle">Chest</span>
+                        <span class="tag tag-diff" id="modal-diff">Beginner</span>
+                    </div>
+                    <h2 id="modal-title">Bench Press</h2>
+                    
+                    <div class="modal-section">
+                        <h4>Instructions</h4>
+                        <ol id="modal-instructions" class="instruction-list">
+                        </ol>
+                    </div>
+                    
+                    <div class="modal-section callout warning">
+                        <h4><span class="material-symbols-outlined">warning</span> Common Mistakes</h4>
+                        <ul id="modal-mistakes"></ul>
+                    </div>
+                    
+                    <div class="modal-section callout pro-tip">
+                        <h4><span class="material-symbols-outlined">lightbulb</span> Pro Tip</h4>
+                        <p id="modal-tip"></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- AI Chatbot -->
+    <div class="chatbot-widget">
+        <button class="chat-toggle" id="chat-toggle">
+            <span class="material-symbols-outlined">smart_toy</span>
+        </button>
+        <div class="chat-window glass-card" id="chat-window">
+            <div class="chat-header">
+                <span class="material-symbols-outlined">smart_toy</span>
+                <div>
+                    <h4>Aura Coach</h4>
+                    <p>Online</p>
+                </div>
+            </div>
+            <div class="chat-messages" id="chat-messages">
+                <div class="message bot">
+                    Hey! I'm Aura. Ready to crush your goals today? How can I help?
+                </div>
+            </div>
+            <div class="chat-input">
+                <input type="text" id="chat-input-field" placeholder="Ask about workouts, form...">
+                <button id="send-chat"><span class="material-symbols-outlined">send</span></button>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
